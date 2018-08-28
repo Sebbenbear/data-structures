@@ -54,6 +54,8 @@ class TestStringMethods(unittest.TestCase):
     #   4
     #  / \
     # 3   5
+    #
+    # => 2
     def test_insertPreOrderWithRootAndLeftRightNodes(self):
         tree = AVLTree()
         tree.insert(4)
@@ -67,6 +69,8 @@ class TestStringMethods(unittest.TestCase):
     #   3   5
     #  / \
     # 1   2
+    #
+    # => 3
     def test_insertPreOrderWithRootAndLeftRightNodesWithLevel1Children(self):
         tree = AVLTree()
         tree.insert(4)
@@ -76,6 +80,93 @@ class TestStringMethods(unittest.TestCase):
         tree.insert(5)
         nodes = tree.preorder_traversal()
         self.assertEqual(nodes, [4, 3, 1, 2, 5])
+
+    # Check height of tree with no nodes: 0
+    def test_heightNoRootNode(self):
+        tree = AVLTree()
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 0)
+
+    # Check height of tree with one node: 0, since we define 
+    # the height to be the number of edges down the tree
+    def test_heightRootNode(self):
+        tree = AVLTree()
+        tree.insert(4)
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 1)
+
+    #   4
+    #  /
+    # 3
+    #
+    # => 2
+    def test_heightRootNodeLeftChild(self):
+        tree = AVLTree()
+        tree.insert(4)
+        tree.insert(3)
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 2)
+
+    # 4
+    #  \
+    #   5
+    #
+    # => 2
+    def test_heightRootNodeRightChild(self):
+        tree = AVLTree()
+        tree.insert(4)
+        tree.insert(5)
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 2)
+
+    #   4
+    #  / \
+    # 3   5
+    #
+    # => 2
+    def test_heightRootNodeLeftRightChildren(self):
+        tree = AVLTree()
+        tree.insert(4)
+        tree.insert(3)
+        tree.insert(5)
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 2)
+
+    #       4
+    #      / \
+    #     3   5
+    #    / 
+    #   2   
+    #  / 
+    # 1   
+    #
+    # => 4
+    def test_heightRootNodeLeftRightMoreChildren(self):
+        tree = AVLTree()
+        tree.insert(4)
+        tree.insert(5)
+        tree.insert(3)
+        tree.insert(2)
+        tree.insert(1)
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 4)
+
+    #     4
+    #    / \
+    #   2    5
+    #  / \
+    # 1   3
+    #
+    # => 3
+    def test_heightRootNodeLeftRight3LevelChildren(self):
+        tree = AVLTree()
+        tree.insert(4)
+        tree.insert(5)
+        tree.insert(2)
+        tree.insert(3)
+        tree.insert(1)
+        height = tree.get_height(tree.root)
+        self.assertEqual(height, 3)
 
 if __name__ == '__main__':
     unittest.main()
