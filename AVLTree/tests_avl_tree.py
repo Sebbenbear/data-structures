@@ -17,6 +17,20 @@ class TestStringMethods(unittest.TestCase):
         nodes = tree.preorder_traversal()
         self.assertEqual(nodes, [4])
 
+    def test_insertPreOrderTreeWithRootLetter(self):
+        tree = AVLTree()
+        tree.insert('a')
+        nodes = tree.preorder_traversal()
+        self.assertEqual(nodes, ['a'])
+
+    def test_insertPreOrderCheckTypeErrorRaised(self):
+        tree = AVLTree()
+        tree.insert('a')
+        try:
+            tree.insert(4)
+        except TypeError:
+            return True
+
     #   4
     #  /
     # 3
@@ -62,22 +76,6 @@ class TestStringMethods(unittest.TestCase):
         tree.insert(5)
         nodes = tree.preorder_traversal()
         self.assertEqual(nodes, [4, 3, 1, 2, 5])
-
-    # def test_checkBalance:
-
-    # def test_upper(self):
-    #     self.assertEqual('foo'.upper(), 'FOO')
-
-    # def test_isupper(self):
-    #     self.assertTrue('FOO'.isupper())
-    #     self.assertFalse('Foo'.isupper())
-
-    # def test_split(self):
-    #     s = 'hello world'
-    #     self.assertEqual(s.split(), ['hello', 'world'])
-    #     # check that s.split fails when the separator is not a string
-    #     with self.assertRaises(TypeError):
-    #         s.split(2)
 
 if __name__ == '__main__':
     unittest.main()

@@ -5,7 +5,6 @@ class AVLTree(object):
     def preorder_traversal(self):
         traversal = []
         if self.root is None:
-            print('no nodes in tree')
             return traversal
         nodes = [self.root]
         while nodes:
@@ -40,7 +39,7 @@ class AVLTree(object):
             self.root = TreeNode(value)
         else:
             if type(self.root.value) != type(value):
-                raise ValueError('value being added is the wrong type')
+                raise TypeError('value being added is the wrong type')
             self.insert_node(self.root, value)
 
 class TreeNode(object):
