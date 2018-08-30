@@ -77,24 +77,30 @@ class AVLTree(object):
     def insert(self, value):
         # type check value
         if self.root is None:
-            # print('adding root: ', value)
             self.root = TreeNode(value)
         else:
             if type(self.root.value) != type(value):
                 raise TypeError('value being added is the wrong type')
             self.insert_node(self.root, value)
 
+    # Returns the new current or root node after left rotation
     def left_rotation(self, node):
+        right_node = node
         if node and node.right:
             right_node = node.right
             node.right = right_node.left
             right_node.left = node
+            return right_node
+        return node
 
+    # Returns the new current or root node after right rotation
     def right_rotation(self, node):
         if node and node.left:
             left_node = node.left
             node.left = left_node.right
             left_node.right = node
+            return left_node
+        return node
 
 class TreeNode(object):
     def __init__(self, value):

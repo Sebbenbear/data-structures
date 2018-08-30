@@ -168,5 +168,49 @@ class TestStringMethods(unittest.TestCase):
         height = tree.get_height(tree.root)
         self.assertEqual(height, 3)
 
+    # None
+    #
+    def test_leftRotationNoRoot(self):
+        tree = AVLTree()
+        tree.left_rotation(tree.root)
+        nodes = tree.preorder_traversal()
+        self.assertEqual(nodes, [])
+
+    # None
+    #
+    def test_rightRotationNoRoot(self):
+        tree = AVLTree()
+        tree.right_rotation(tree.root)
+        nodes = tree.preorder_traversal()
+        self.assertEqual(nodes, [])
+
+    # 1            2
+    #  \          / \
+    #   2   =>   1   3 
+    #    \
+    #     3
+    def test_leftRotationOnRoot(self):
+        tree = AVLTree()
+        tree.insert(1)
+        tree.insert(2)
+        tree.insert(3)
+        tree.root = tree.left_rotation(tree.root)
+        nodes = tree.preorder_traversal()
+        self.assertEqual(nodes, [2, 1, 3])
+
+    #     3         2
+    #    /    =>   / \ 
+    #   2         1   3
+    #  /
+    # 1
+    def test_rightRotationOnRoot(self):
+        tree = AVLTree()
+        tree.insert(3)
+        tree.insert(2)
+        tree.insert(1)
+        tree.root = tree.right_rotation(tree.root)
+        nodes = tree.preorder_traversal()
+        self.assertEqual(nodes, [2, 1, 3])
+
 if __name__ == '__main__':
     unittest.main()
